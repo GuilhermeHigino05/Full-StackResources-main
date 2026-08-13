@@ -1,0 +1,19 @@
+{
+  "name": "aula01pfs2",
+  "version": "1.0.0",
+  "description": "API REST em full-stack 2",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "FullStack02Resources"
+  },
+  "author": "Guilherme",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
