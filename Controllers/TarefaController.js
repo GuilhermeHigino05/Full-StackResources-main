@@ -12,48 +12,60 @@ let tarefas = [
 export default class TarefaController {
  
     Create(req,res){
-        let {nome} = req.body
-
-        if(nome){
-            //Grava o nome 
-            let novaTarefa = {id: Date.now(), nome: nome}
-            tarefas.push(novaTarefa);
-            return res.status(201).json(novaTarefa)
-        }else{
-            return res.status(400).json({msg: 'O parâmetro nome não foi enviado na requisição!'})
+        try{
+            let {nome} = req.body
+            if(nome){
+                let novaTarefa = {id: Date.now(), nome: nome}
+                tarefas.push(novaTarefa);
+                return res.status(201).json(novaTarefa)
+            }else{
+                return res.status(400).json({msg: 'O parâmetro nome não foi enviado na requisição!'})
+            }
+        }catch(error){
+            return res.status(500).json({msg: 'Erro interno no servidor'})
         }
     }
 
     Read(req,res){
-        return res.status(200).json(tarefas)
+        try{
+            return res.status(200).json(tarefas)
+        }catch(error){
+            return res.status(500).json({msg: 'Erro interno no servidor'})
+        }
     }
 
     Update(req,res){   
-        let {id, nome} = req.body
-        if(id && nome){
-            let task = tarefas.find(update => update.id === id)
-            if(task){
-                task.nome = nome
-                return res.status(200).json(task);
+        try{
+            let {id, nome} = req.body
+            if(id && nome){
+                let task = tarefas.find(update => update.id === id)
+                if(task){
+                    task.nome = nome
+                    return res.status(200).json(task);
+                }else{
+                    return res.status(404).json({msg: 'Tarefa não encontrada!'})
+                }
             }else{
-                return res.status(404).json({msg: 'Tarefa não encontrada!'})
+                return res.status(400).json({msg: 'Os parâmetros id e nome não foram enviados na requisição!'})
             }
-        }else{
-            return res.status(400).json({msg: 'Os parâmetros id e nome não foram enviados na requisição!'})
+        }catch(error){
+            return res.status(500).json({msg: 'Erro interno no servidor'})
         }
-
     }
 
     Delete(req,res){
-        const id = req.params.id
-        const taskExists = tarefas.find(x => x.id == id)
+        try{const id = req.params.id
+            const taskExists = tarefas.find(x => x.id == id)
 
-        if(!taskExists){
-            return res.status(404).json({ msg: 'Tarefa não encontrada!' })
+            if(!taskExists){
+                return res.status(404).json({ msg: 'Tarefa não encontrada!' })
+            }
+
+            tarefas = tarefas.filter(x => x.id != id)
+            return res.status(200).json(tarefas)
+        }catch(error) {
+            res.status(500).json({err: "Erro"})
         }
-
-        tarefas = tarefas.filter(x => x.id != id)
-        return res.status(200).json(tarefas)
     }
 
     GetById(req, res){
