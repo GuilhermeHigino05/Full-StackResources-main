@@ -6,27 +6,27 @@ const Router = express.Router()
 let controller = new TarefaController()
 Router.get('/', (req, res) => {
     // #swagger.tags = ['Tarefas']
-    // #swagger.description = 'Endpoint para listar todas as tarefas'
+    // #swagger.summary = 'Endpoint para listar todas as tarefas'
     controller.Read(req, res);
 });
 Router.post('/', (req, res) => {
     // #swagger.tags = ['Tarefas']
-    // #swagger.description = 'Endpoint para criar uma nova tarefa'
+    // #swagger.summary = 'Endpoint para criar uma nova tarefa'
     controller.Create(req, res);
 });
 Router.put('/', (req, res) => {
     // #swagger.tags = ['Tarefas']
-    // #swagger.description = 'Endpoint para atualizar uma tarefa existente'
+    // #swagger.summary = 'Endpoint para atualizar uma tarefa existente'
     controller.Update(req, res);
 });
 Router.delete('/:id', (req, res) => {
     // #swagger.tags = ['Tarefas']
-    // #swagger.description = 'Endpoint para excluir uma tarefa'
+    // #swagger.summary = 'Endpoint para excluir uma tarefa'
     controller.Delete(req, res);
 });
 Router.get('/:id', (req, res) => {
     // #swagger.tags = ['Tarefas']
-    // #swagger.description = 'Endpoint para obter uma tarefa pelo ID'
+    // #swagger.summary = 'Endpoint para obter uma tarefa pelo ID'
     controller.GetById(req, res);
 });
 
