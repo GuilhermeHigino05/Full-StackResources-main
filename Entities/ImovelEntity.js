@@ -79,6 +79,31 @@ export default class ImovelEntity {
         this.#available = available;
     }
 
+    valid(){
+        if(this.#description && this.#cep && this.#address && this.#neighborhood && this.#city && this.#price && this.#available){
+            let endValid = this.address.split(",");
+            if(endValid.length > 1 && !isNaN(endValid[1])){
+                return true
+            }
+        }
 
+        return false;
+    }
 
+    static toMap(row){
+        return new ImovelEntity(row["imv_id"], row['imv_descricao'], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_valor"], row["imv_disponivel"]);
+    }
+
+    toJSON(){
+        return {
+            id: this.#id,
+            description: this.#description,
+            cep: this.#cep,
+            address: this.#address,
+            neighborhood: this.#neighborhood,
+            city: this.#city,
+            price: this.#price,
+            available: this.#available
+        }
+    }  
 }

@@ -9,38 +9,55 @@ export default class ImovelRepository {
     }
 
     async Create(imovelEntity) {
-        try {
-            const query = 'insert into tb_imovel (id, description, cep, address, neighborhood, city, price, available) values (?, ?, ?, ?, ?, ?, ?, ?)';
-            const values = [imovelEntity.id, imovelEntity.description, imovelEntity.cep, imovelEntity.address, imovelEntity.neighborhood, imovelEntity.city, imovelEntity.price, imovelEntity.available];
-            let id = await this.#db.ExecutaComandoLastInserted(query, values);
-            if(id) {
-                ImovelEntity.id = id;
-                return true;
-            }
-            return false;
-        } catch (error) {
-            return 'Internal Server Error';
+        const query = 'insert into tb_imovel (imv_id, imv_descricao, imv_cep, imv_endereco, imv_bairro, imv_cidade, imv_valor, imv_disponivel) values (?, ?, ?, ?, ?, ?, ?, ?)';
+        const values = [imovelEntity.id, imovelEntity.description, imovelEntity.cep, imovelEntity.address, imovelEntity.neighborhood, imovelEntity.city, imovelEntity.price, imovelEntity.available];
+        let id = await this.#db.ExecutaComandoLastInserted(query, values);
+        if(id) {
+            ImovelEntity.id = id;
+            return true;
         }
+        return false;
+
     }
 
     async Read(){
         const query = 'select * from tb_imovel';
         let rows = await this.#db.ExecutaComando(query);
+        let list = [];
         if(rows.length > 0) {
-            rows.forEach(element => {
-                element = new ImovelEntity(element.id, element.description,
-                        element.cep, element.address, element.neighborhood, 
-                        element.city, element.price, element.available);
-            });
+            for(let row of rows) {
+                list.push(ImovelEntity.toMap(row));
+            }
         }
-        return rows ? rows : [];
-    }
-
-    Update(imovelEntity){
+        return list;
 
     }
-    Delete(id){
+
+    async Update(imovelEntity){
+        let query = 'update tb_imovel set imv_descricao = ?, imv_cep = ?, imv_endereco = ?, imv_bairro = ?, imv_cidade = ?, imv_valor = ?, imv_disponivel = ? where imv_id = ?';
+        let values = [imovelEntity.description, imovelEntity.cep, imovelEntity.address, imovelEntity.neighborhood, imovelEntity.city, imovelEntity.price, imovelEntity.available, imovelEntity.id];
+        let res = await this.#db.ExecutaComando(query, values);
+        return res? true : false
+    }
+    async Delete(id){
+        let query = 'delete from tb_imovel where imv_id = ?';
+        let value = [id];
+        let res = await this.#db.ExecutaComandoNonQuery(query, value);
+        return res? true : false
 
     }
+
+    toJson(imovelEntity){
+        return {
+            id: imovelEntity.id,
+            description: imovelEntity.description,
+            cep: imovelEntity.cep,
+            address: imovelEntity.address,
+            neighborhood: imovelEntity.neighborhood,
+            city: imovelEntity.city,
+            price: imovelEntity.price,
+            available: imovelEntity.available
+        }
+    }  
 
 }
