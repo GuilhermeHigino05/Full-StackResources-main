@@ -1,160 +1,103 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API para disciplina de PFS2",
-    "description": "Documentação do conjunto de endpoints criados durante as aulas de PFS2",
+    "title": "Crud API imovel",
+    "description": "Documentação da API de imóveis",
     "version": "1.0.0"
   },
   "host": "localhost:5000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Memphis",
-      "description": "Depay"
-    }
-  ],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/tarefa/": {
+    "/imoveis": {
       "get": {
         "tags": [
-          "Tarefas"
+          "Imóveis"
         ],
-        "summary": "Endpoint para listar todas as tarefas",
-        "description": "",
+        "summary": "Lista todos os imóveis",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de imóveis"
+          },
+          "204": {
+            "description": "Nenhum imóvel cadastrado"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Erro interno do servidor"
           }
         }
       },
       "post": {
         "tags": [
-          "Tarefas"
+          "Imóveis"
         ],
-        "summary": "Endpoint para criar uma nova tarefa",
-        "description": "",
+        "summary": "Cadastra um imóvel",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "nome": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ImovelInput"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Imóvel cadastrado"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Parâmetros incorretos"
           },
           "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Tarefas"
-        ],
-        "summary": "Endpoint para atualizar uma tarefa existente",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "nome": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "Erro interno do servidor"
           }
         }
       }
-    },
-    "/tarefa/{id}": {
-      "delete": {
-        "tags": [
-          "Tarefas"
-        ],
-        "summary": "Endpoint para excluir uma tarefa",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Tarefas"
-        ],
-        "summary": "Endpoint para obter uma tarefa pelo ID",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+    }
+  },
+  "definitions": {
+    "ImovelInput": {
+      "type": "object",
+      "required": [
+        "description",
+        "cep",
+        "address",
+        "neighborhood",
+        "city",
+        "price",
+        "available"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "Apartamento com 2 quartos"
+        },
+        "cep": {
+          "type": "string",
+          "example": "12345-678"
+        },
+        "address": {
+          "type": "string",
+          "example": "Rua Central, 100"
+        },
+        "neighborhood": {
+          "type": "string",
+          "example": "Centro"
+        },
+        "city": {
+          "type": "string",
+          "example": "São Paulo"
+        },
+        "price": {
+          "type": "number",
+          "example": 250000
+        },
+        "available": {
+          "type": "boolean",
+          "example": true
         }
       }
     }
