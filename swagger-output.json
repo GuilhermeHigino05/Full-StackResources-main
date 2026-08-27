@@ -1,0 +1,30 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Atividade 2 para a disciplina de PFS2",
+    "description": "Documentação do conjunto de endpoints criados durante a atividade de Programação Fullstack 2",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/Course/": {
+      "get": {
+        "tags": [],
+        "summary": "Lista todos os cursos",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  }
+}

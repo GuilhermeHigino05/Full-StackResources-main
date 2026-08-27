@@ -18,6 +18,7 @@ export default class CourseEntity{
     }
 
     
+    
 
     static toMap(row){
         return new CourseEntity(row.cur_id, row.cur_nome, row.cur_valor)
