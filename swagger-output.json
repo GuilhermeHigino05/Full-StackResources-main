@@ -13,7 +13,9 @@
   "paths": {
     "/Course/": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Course"
+        ],
         "summary": "Lista todos os cursos",
         "description": "",
         "responses": {
@@ -22,6 +24,337 @@
           },
           "204": {
             "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Criar um curso",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "nome": {
+                  "example": "any"
+                },
+                "valor": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Atualizar um curso",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "nome": {
+                  "example": "any"
+                },
+                "valor": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Course/{id}": {
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Excluir um curso",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Encontrar um curso",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Matricula/": {
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Lista todas as matrículas",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Criar uma matrícula",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "nome": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "cep": {
+                  "example": "any"
+                },
+                "endereco": {
+                  "example": "any"
+                },
+                "bairro": {
+                  "example": "any"
+                },
+                "cidade": {
+                  "example": "any"
+                },
+                "uf": {
+                  "example": "any"
+                },
+                "cursando": {
+                  "example": "any"
+                },
+                "cur_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Atualizar uma matrícula",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "nome": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "cep": {
+                  "example": "any"
+                },
+                "endereco": {
+                  "example": "any"
+                },
+                "bairro": {
+                  "example": "any"
+                },
+                "cidade": {
+                  "example": "any"
+                },
+                "uf": {
+                  "example": "any"
+                },
+                "cursando": {
+                  "example": "any"
+                },
+                "cur_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/Matricula/{id}": {
+      "delete": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Excluir uma matrícula",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Matricula"
+        ],
+        "summary": "Encontrar uma matrícula",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
