@@ -46,6 +46,15 @@ export default class ImovelRepository {
         return res? true : false
 
     }
+    async GetById(id){
+        let query = 'select * from tb_imovel where imv_id = ?';
+        let value = [id];
+        let res = await this.#db.ExecutaComando(query, value);
+        if(res.length > 0){
+            return ImovelEntity.toMap(res[0]);
+        }
+        return null;
+    }
 
     toJson(imovelEntity){
         return {

@@ -1,103 +1,166 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "Crud API imovel",
-    "description": "Documentação da API de imóveis",
+    "title": "API para a disciplina de PFS2",
+    "description": "Documentação do conjunto de endpoints criados durante as aulas de Programação Fullstack 2",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:5000/"
+    }
   ],
   "paths": {
-    "/imoveis": {
+    "/imovel/": {
       "get": {
         "tags": [
-          "Imóveis"
+          "Imóvel"
         ],
         "summary": "Lista todos os imóveis",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Lista de imóveis"
+            "description": "OK"
           },
           "204": {
-            "description": "Nenhum imóvel cadastrado"
+            "description": "No Content"
           },
           "500": {
-            "description": "Erro interno do servidor"
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
         "tags": [
-          "Imóveis"
+          "Imóvel"
         ],
-        "summary": "Cadastra um imóvel",
+        "summary": "Cadastrar imóveis",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "address": {
+                    "example": "any"
+                  },
+                  "neighborhood": {
+                    "example": "any"
+                  },
+                  "city": {
+                    "example": "any"
+                  },
+                  "price": {
+                    "example": "any"
+                  },
+                  "available": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Imóvel"
+        ],
+        "summary": "Atulizar imóveis",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "description": {
+                    "example": "any"
+                  },
+                  "cep": {
+                    "example": "any"
+                  },
+                  "address": {
+                    "example": "any"
+                  },
+                  "neighborhood": {
+                    "example": "any"
+                  },
+                  "city": {
+                    "example": "any"
+                  },
+                  "price": {
+                    "example": "any"
+                  },
+                  "available": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imovel/{id}": {
+      "delete": {
+        "tags": [
+          "Imóvel"
+        ],
+        "summary": "Deletar imóveis",
+        "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ImovelInput"
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Imóvel cadastrado"
+          "200": {
+            "description": "OK"
           },
-          "400": {
-            "description": "Parâmetros incorretos"
-          },
-          "500": {
-            "description": "Erro interno do servidor"
+          "404": {
+            "description": "Not Found"
           }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "ImovelInput": {
-      "type": "object",
-      "required": [
-        "description",
-        "cep",
-        "address",
-        "neighborhood",
-        "city",
-        "price",
-        "available"
-      ],
-      "properties": {
-        "description": {
-          "type": "string",
-          "example": "Apartamento com 2 quartos"
-        },
-        "cep": {
-          "type": "string",
-          "example": "12345-678"
-        },
-        "address": {
-          "type": "string",
-          "example": "Rua Central, 100"
-        },
-        "neighborhood": {
-          "type": "string",
-          "example": "Centro"
-        },
-        "city": {
-          "type": "string",
-          "example": "São Paulo"
-        },
-        "price": {
-          "type": "number",
-          "example": 250000
-        },
-        "available": {
-          "type": "boolean",
-          "example": true
         }
       }
     }

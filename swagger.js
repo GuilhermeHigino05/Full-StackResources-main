@@ -1,44 +1,17 @@
-import { writeFile } from 'fs/promises'
+import swaggerAutogen from "swagger-autogen";
 
-const doc ={
+const doc = {
     info: {
-        title: 'Crud API imovel',
-        description: 'Documentação da API de imóveis',
-        version: '1.0.0'
+        title: "API para a disciplina de PFS2",
+        description: "Documentação do conjunto de endpoints criados durante as aulas de Programação Fullstack 2"
     },
-    host: 'localhost:5000',
-    basePath: '/',
-    schemes: ['http'],
-    paths: {
-        '/imoveis': {
-            get: {
-                tags: ['Imóveis'],
-                summary: 'Lista todos os imóveis',
-                responses: {
-                    200: { description: 'Lista de imóveis' },
-                    204: { description: 'Nenhum imóvel cadastrado' },
-                    500: { description: 'Erro interno do servidor' }
-                }
-            },
-            post: {
-                tags: ['Imóveis'],
-                summary: 'Cadastra um imóvel',
-                parameters: [{
-                    name: 'body',
-                    in: 'body',
-                    required: true,
-                    schema: { $ref: '#/definitions/ImovelInput' }
-                }],
-                responses: {
-                    201: { description: 'Imóvel cadastrado' },
-                    400: { description: 'Parâmetros incorretos' },
-                    500: { description: 'Erro interno do servidor' }
-                }
-            }
-        }
-    }
-
+    host: "localhost:5000"
 }
-const outputFile = './swagger-output.json'
 
-await writeFile(outputFile, `${JSON.stringify({ swagger: '2.0', ...doc }, null, 2)}\n`)
+const outputFile = "./swagger-output.json";
+const routes = ["./server.js"];
+
+swaggerAutogen({openapi: '3.0.0'})(outputFile, routes, doc)
+.then(async () => [
+    await import('./server.js')
+])
