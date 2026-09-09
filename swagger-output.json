@@ -25,6 +25,12 @@
           "204": {
             "description": "No Content"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -42,6 +48,15 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -84,7 +99,7 @@
         "tags": [
           "Imóvel"
         ],
-        "summary": "Atulizar imóveis",
+        "summary": "Atualizar imóveis",
         "description": "",
         "responses": {
           "200": {
@@ -92,6 +107,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -158,6 +176,9 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           }
@@ -166,6 +187,10 @@
     },
     "/User/": {
       "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "Valida credenciais de login",
         "description": "",
         "responses": {
           "200": {

@@ -17,4 +17,14 @@ export default class UserRepository {
         }
         return null;
     }
+
+    async GetById(id){
+        let sql = "select * from tb_usuario where usu_id = ? and usu_ativo = 1";
+        let value = [id]
+        let rows = await this.#banco.ExecutaComando(sql, value);
+        if(rows.length > 0){
+            return UserEntity.toMap(rows[0])
+        }
+        return null;
+    }
 }

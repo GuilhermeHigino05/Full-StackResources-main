@@ -5,9 +5,11 @@ import {createRequire} from 'module';
 import LoginRouter from './routes/loginRoute.js'
 const require = createRequire(import.meta.url);
 const outputJson = require("./swagger-output.json");
+const cookieParser = require('cookie-parser');
+
 
 const server = express();
-
+server.use(cookieParser());
 server.use(express.json());
 
 server.use("/docs", swaggerUi.serve, swaggerUi.setup(outputJson));
