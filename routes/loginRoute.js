@@ -9,6 +9,8 @@ Router.post('/', (req, res) => {
     // #swagger.tags = ['Login']
     // #swagger.summary = 'Valida credenciais de login'
     ctrl.validar(req, res);
-})
+});
+
+
 
 export default Router

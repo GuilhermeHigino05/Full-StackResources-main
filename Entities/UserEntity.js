@@ -1,7 +1,8 @@
+import Entity from "./Entity.js";
 import PerfilEntity from "./PerfilEntity.js"
 
 
-export default class UserEntity {
+export default class UserEntity extends Entity {
     #id
     #nome
     #email
@@ -46,6 +47,7 @@ export default class UserEntity {
         this.#perfil = value;
     }
     constructor(id, nome, email, ativo, senha, perfil) {
+        super();
         this.#id = id;
         this.#nome = nome;
         this.#email = email;
@@ -58,14 +60,5 @@ export default class UserEntity {
         return new UserEntity(row['usu_id'], row['usu_nome'], row['usu_email'], row['usu_ativo'], row['usu_senha'], new PerfilEntity(row['per_id']));
     }
 
-    toJSON(){
-        return {
-            id: this.#id,
-            nome: this.#nome,
-            email: this.#email,
-            ativo: this.#ativo,
-            senha: this.#senha,
-            perfil: this.#perfil
-        }
-    }
+    
 }

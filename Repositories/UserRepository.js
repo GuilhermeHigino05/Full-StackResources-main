@@ -1,4 +1,5 @@
 import Database from "../database/database.js"
+import Entity from "../Entities/Entity.js";
 import UserEntity from "../Entities/UserEntity.js";
 
 
@@ -16,6 +17,18 @@ export default class UserRepository {
             return UserEntity.toMap(rows[0])
         }
         return null;
+    }
+
+    async listar(){
+        let sql = "select * from tb_usuario"
+        let rows = await this.#banco.ExecutaComando(sql);
+        let list = []
+        if(rows.length > 0){
+            for(let row of rows){
+                list.push(UserEntity.toMap(row))
+            }   
+        }
+        return list
     }
 
     async GetById(id){

@@ -65,7 +65,7 @@ export default class ImovelEntity {
     }
 
     set available(value) {
-        this.#available = value;
+        this.#available = Number(value);
     }
 
     constructor(id, description, cep, address, neighborhood, city, price, available) {
@@ -76,11 +76,11 @@ export default class ImovelEntity {
         this.#neighborhood = neighborhood;
         this.#city = city;
         this.#price = price;
-        this.#available = available;
+        this.available = available;
     }
 
     valid(){
-        if(this.#description && this.#cep && this.#address && this.#neighborhood && this.#city && this.#price && this.#available){
+        if(this.#description && this.#cep && this.#address && this.#neighborhood && this.#city && this.#price && [0, 1].includes(this.#available)){
             let endValid = this.address.split(",");
             if(endValid.length > 1 && !isNaN(endValid[1])){
                 return true

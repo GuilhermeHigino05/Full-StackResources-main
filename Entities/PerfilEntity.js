@@ -1,6 +1,7 @@
+import Entity from "./Entity.js";
 
 
-export default class PerfilEntity{
+export default class PerfilEntity extends Entity{
     #per_id
     #per_descricao
 
@@ -17,18 +18,12 @@ export default class PerfilEntity{
         this.#per_descricao = value;
     }
     constructor(id, description) {
+        super();
         this.#per_id = id;
         this.#per_descricao = description;
     }
 
     toMap(row){
         return new PerfilEntity(row.per_id, row.per_descricao);
-    }
-
-    toJSON(){
-        return {
-            id: this.#per_id,
-            description: this.#per_descricao
-        }
     }
 }
