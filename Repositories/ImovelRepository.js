@@ -7,6 +7,7 @@ export default class ImovelRepository {
     constructor() {
         this.#db = new Database();
     }
+    set banco (value) { this.#db = value }
 
     async Create(imovelEntity) {
         const query = 'insert into tb_imovel (imv_id, imv_descricao, imv_cep, imv_endereco, imv_bairro, imv_cidade, imv_valor, imv_disponivel) values (?, ?, ?, ?, ?, ?, ?, ?)';

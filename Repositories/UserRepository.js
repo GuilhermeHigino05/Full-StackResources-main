@@ -8,6 +8,7 @@ export default class UserRepository {
     constructor(){
         this.#banco = new Database()
     }
+    set banco (value) { this.#banco = value }
 
     async obterPorEmailSenha(email, senha){
         let sql = "select * from tb_usuario where usu_email = ? and usu_senha = ?";

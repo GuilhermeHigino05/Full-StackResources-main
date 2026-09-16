@@ -4,7 +4,7 @@ import ImovelRepository from '../Repositories/ImovelRepository.js'
 import ContratoEntity from '../Entities/contratoEntity.js'
 import AluguelEntity from '../Entities/aluguelEntity.js'
 import UserEntity from '../Entities/UserEntity.js'
-
+import Database from '../database/database.js'
 export default class LocacaoController {
     #contratoRepo;
     #aluguelRepo;
@@ -17,7 +17,12 @@ export default class LocacaoController {
     }
 
     async locar(req, res){
+        let banco = new Database()
         try {
+            await banco.StartTansaction();
+            this.#aluguelRepo.banco = banco;
+            this.#contratoRepo.banco = banco;
+            this.#imovelRepo.banco = banco;
             let {idImovel} = req.body;
             let imovel = await this.#imovelRepo.GetById(idImovel);
             if(imovel == null || imovel.available === 0){
@@ -40,10 +45,13 @@ export default class LocacaoController {
                     aluguel.mes = hoje.getMonth() +1;
                     aluguel.vencimento = hoje;
 
-                    await this.#aluguelRepo.gravar(aluguel)
+                    if(await this.#aluguelRepo.gravar(aluguel) == false){
+                        throw new Error('Erro ao gravar aluguel');
+                    }
                 }
                 imovel.available = 0
                 if(await this.#imovelRepo.Update(imovel)){
+                    await banco.Commit();
                     return res.status(200).json({msg: 'Imóvel alugado com sucesso'})
                 }else{
                     throw new Error('Erro ao atualizar imóvel no banco de dados')
@@ -53,6 +61,7 @@ export default class LocacaoController {
                 throw new Error ('Erro ao gerar contrato')
             }
         } catch (error) {
+            await banco.Rollback()
             console.log(error);
             return res.status(500).json({msg: "Internal Server Error"})
         }

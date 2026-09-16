@@ -12,6 +12,7 @@ export default class ContratoRepository {
     constructor() {
         this.#banco = new Database();
     }
+    set banco (value) { this.#banco = value }
 
     async listarPorUsuario(usuarioId) {
 

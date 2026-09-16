@@ -11,6 +11,8 @@ export default class AluguelRepository {
         this.#banco = new Database();
     }
 
+    set banco (value) { this.#banco = value }
+
     async gravar(aluguel) {
 
         const sql = "insert into tb_aluguel (alu_mes, alu_vencimento, alu_valor, alu_pago, ctr_id) values (?, ?, ?, ?, ?)";

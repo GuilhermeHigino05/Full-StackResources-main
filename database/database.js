@@ -54,6 +54,42 @@ export default class Database {
         })
     }
 
+    StartTansaction(){
+        var cnn = this.#conexao;
+        return new Promise(function(res, rej) {
+            cnn.query("START TRANSACTION", function (error, results, fields) {
+                if (error) 
+                    rej(error);
+                else 
+                    res(results);
+            });
+        })
+    }
+
+    Rollback(){
+        var cnn = this.#conexao;
+        return new Promise(function(res, rej) {
+            cnn.query("rollback", function (error, results, fields) {
+                if (error) 
+                    rej(error);
+                else 
+                    res(results);
+            });
+        })
+    }
+
+    Commit(){
+        var cnn = this.#conexao;
+        return new Promise(function(res, rej) {
+            cnn.query("commit", function (error, results, fields) {
+                if (error) 
+                    rej(error);
+                else 
+                    res(results);
+            });
+        })
+    }
+
 }
 
 
