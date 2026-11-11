@@ -1,12 +1,12 @@
 'use client'
-import {useRef} from 'react'
+import {useRef, useState,useEffect} from 'react'
 import Botao from './botao';
 import Link from 'next/link';
 import { ApiClient } from '@/utils/apiClient 1';
 import toast from 'react-hot-toast'
 
 import { useRouter } from 'next/navigation';
-export default function FormImovel() {
+export default function FormImovel({ imovel }) {
 
     const router = useRouter()
     let descricao = useRef('')
@@ -16,6 +16,7 @@ export default function FormImovel() {
     let cidade = useRef('')
     let valor = useRef('')
     let disponivel = useRef('')
+    const [alterar,setAlterar] = useState(false)
     async function Cadastrar()
     {
         let obj = {
@@ -39,81 +40,96 @@ export default function FormImovel() {
         }
     }
 
+    async function alterar() {
+        
+    }
+
+    useEffect(() => {
+        setAlterar(true)
+        // preencher as refs
+    },[])
     return (<div>
-        <h1>Fomulario</h1>
-        <div className="form-control">
+        <h1>Formulário</h1>
+        <div>
         <form>
         <div className="form-group">
-            <label htmlFor="descricao">Descricao:</label>
+            <label className="d-block" htmlFor="descricao">Descrição:</label>
             <input
                 type="text"
                 name="descricao"
                 id="descricao"
+                className="form-control"
                 ref={descricao}
             />
         </div>
 
         <div className="form-group">
-            <label htmlFor="endereco">endereco:</label>
+            <label className="d-block" htmlFor="endereco">Endereço:</label>
             <input
                 type="text"
                 name="endereco"
                 id="endereco"
+                className="form-control"
                 ref={endereco}
             />
         </div>
 
         <div className="form-group">
-            <label htmlFor="cidade">cidade:</label>
+            <label className="d-block" htmlFor="cidade">Cidade:</label>
             <input
                 type="text"
                 name="cidade"
                 id="cidade"
+                className="form-control"
                 ref={cidade}
             />
         </div>
 
         <div className="form-group">
-            <label htmlFor="CEP">CEP:</label>
+            <label className="d-block" htmlFor="CEP">CEP:</label>
             <input
                 type="number"
                 name="CEP"
                 id="CEP"
+                className="form-control"
                 ref={cep}
             />
         </div>
 
         <div className="form-group">
-        <label htmlFor="valor">valor:</label>
+        <label className="d-block" htmlFor="valor">Valor:</label>
         <input
             type="number"
             name="valor"
             id="valor"
+            className="form-control"
             ref={valor}
         />
         </div>
         
         <div className="form-group">
-            <label htmlFor="bairro">Bairro:</label>
+            <label className="d-block" htmlFor="bairro">Bairro:</label>
             <input
                 type="text"
                 name="bairro"
                 id="bairro"
+                className="form-control"
                 ref={bairro}
             />
         </div>
 
-        <div className="form-group">
-            <label htmlFor="disponivel">Disponível:</label>
+        <div className="form-group form-check">
             <input
                 type="checkbox"
                 name="disponivel"
                 id="disponivel"
+                className="form-check-input"
                 ref={disponivel}
             />
+            <label className="form-check-label" htmlFor="disponivel">Disponível</label>
         </div>
-        <Botao texto='Gravar' funcao={Cadastrar}></Botao>
-        <Link href="/administrador/Imoveis">Voltar</Link>
+        <Botao texto='Gravar' funcao={alterar? alterar : Cadastrar}></Botao>
+        <Link className="btn btn-secondary ml-2" href="/administrador/Imoveis">Voltar</Link>
         </form>
     </div>
     </div>

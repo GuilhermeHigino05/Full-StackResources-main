@@ -12,6 +12,7 @@
 
 html {
   height: 100%;
+  color-scheme: light;
 }
 
 html,
@@ -42,8 +43,3 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}

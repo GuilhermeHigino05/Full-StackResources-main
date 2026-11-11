@@ -71,7 +71,24 @@ export default class ImovelController {
                 return res.status(400).json({msg: "Parâmetros incorretos!"});
             }
         }
-         catch(ex) {
+        catch(ex) {
+            console.log(ex);
+            return res.status(500).json({msg: "Erro interno no servidor!"});
+        }
+    }
+
+    async obterPorId(req, res){
+        let {id} = req.params;
+        try{
+            let entidade = await this.#repo.obterPorId(id);
+            if(entidade) {
+                return res.status(200).json(entidade);
+            }
+            else {
+                return res.status(404).json({msg: "Imóvel não encontrado!"});
+            }
+        }
+        catch(ex) {
             console.log(ex);
             return res.status(500).json({msg: "Erro interno no servidor!"});
         }

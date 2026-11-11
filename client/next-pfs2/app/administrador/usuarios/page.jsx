@@ -2,10 +2,6 @@
 import { ApiClient } from '@/utils/apiClient 1';
 import { useEffect, useState } from 'react'
 
-
-
-
-
 export default function HomeUsuarios() {
     const [users, setUsers] = useState([])
     async function getUsers(){
@@ -40,7 +36,7 @@ export default function HomeUsuarios() {
                                 <td>{value.nome}</td>
                                 <td>{value.email}</td>
                                 <td>{value.ativo}</td>
-                                <td>{value.perfil}</td>
+                                <td>{value.perfil?.id}</td>
                             </tr>
                         })
                     }

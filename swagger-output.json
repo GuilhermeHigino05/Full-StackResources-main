@@ -165,6 +165,28 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Imóvel"
+        ],
+        "summary": "Obter um imóvel pelo ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/login/": {

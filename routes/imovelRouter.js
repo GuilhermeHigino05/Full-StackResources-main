@@ -29,5 +29,10 @@ router.put("/", auth.validar, (req, res) => {
     // #swagger.summary = "Excluir um imóvel existente"
     controladora.deletar(req, res);
  })
+ router.get("/:id", auth.validar, (req, res) => {
+    // #swagger.tags = ['Imóvel']
+    // #swagger.summary = "Obter um imóvel pelo ID"
+    controladora.obterPorId(req, res);
+ })
 
 export default router;
