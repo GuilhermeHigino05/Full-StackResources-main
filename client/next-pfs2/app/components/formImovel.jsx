@@ -2,9 +2,13 @@
 import {useRef} from 'react'
 import Botao from './botao';
 import Link from 'next/link';
+import { ApiClient } from '@/utils/apiClient 1';
+import toast from 'react-hot-toast'
+
+import { useRouter } from 'next/navigation';
 export default function FormImovel() {
 
-
+    const router = useRouter()
     let descricao = useRef('')
     let endereco = useRef('')
     let bairro = useRef('')
@@ -28,11 +32,11 @@ export default function FormImovel() {
             alert("Preencha todos os campos obrigatórios!")
             return
         }
-        let r = await fetch('http://localhost:5000/imovel', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(obj)
-        })
+        let r = await ApiClient.post('/imovel', obj)
+        if(r){
+            toast.success('Imovel cadastrado com sucesso') 
+            router.push('/administrador/Imoveis')
+        }
     }
 
     return (<div>

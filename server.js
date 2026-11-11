@@ -16,7 +16,7 @@ const server = express();
 
 server.use(express.json());
 server.use(cookieParser());
-server.use(cors({origin: 'http://localhost:3001', credentials: true}))
+server.use(cors({origin: 'http://localhost:3000', credentials: true}))
 
 //definição da rota que irá expor a página de documentação
 server.use("/docs", swaggerUi.serve, swaggerUi.setup(outputJson));

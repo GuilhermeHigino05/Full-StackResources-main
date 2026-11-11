@@ -1,4 +1,5 @@
 'use client'
+import { ApiClient } from '@/utils/apiClient 1';
 import Link from 'next/link';
 import { useEffect, useState } from 'react'
 export default function HomeImoveis() {
@@ -6,12 +7,10 @@ export default function HomeImoveis() {
     const [imovel, setImoveis] = useState([])
 
     async function carregarImoveis() {
-        let r = await fetch("http://localhost:5000/imovel", {
-            method: 'GET'
-        })
-        let body = await r.json()
-        console.log(body)
-        setImoveis(body)
+        const resposta = await ApiClient.get('/imovel')
+        if(resposta){
+            setImoveis(resposta)
+        }
     }
     
     useEffect(() => {
