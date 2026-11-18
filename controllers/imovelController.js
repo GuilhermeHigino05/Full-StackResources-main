@@ -56,7 +56,7 @@ export default class ImovelController {
             if(entidade.validar()) {
                 if(await this.#repo.obterPorId(id)) {
                     //prossegue com a atualização
-                    let result = this.#repo.atualizar(entidade);
+                    let result = await this.#repo.atualizar(entidade);
                     if(result){
                         return res.status(200).json({msg: "Imóvel atualizado com sucesso!"});
                     }

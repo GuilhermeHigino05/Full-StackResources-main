@@ -10,6 +10,10 @@ export default class LoginController {
         this.#repoUsuario = new UsuarioRepository();
     }
 
+    async cookie(req, res){
+        res.status(200).json(req.usuario)
+    }
+
     async validar(req, res) {
         try{
             let {email, senha} = req.body;
@@ -21,7 +25,7 @@ export default class LoginController {
                     let middleware = new AutenticacaoMiddleware();
                     let token = middleware.gerarJWT(usuario.id, usuario.nome, usuario.email, usuario.perfil.id);
                     res.cookie("token-pfs2", token, { httpOnly: true });
-                    return res.status(200).json({token: token});
+                    return res.status(200).json({token: token, user: usuario});
                 }
                 else {
                     return res.status(404).json({msg: "Usuário não encontrado!"});

@@ -16,7 +16,7 @@ export default function FormImovel({ imovel }) {
     let cidade = useRef('')
     let valor = useRef('')
     let disponivel = useRef('')
-    const [alterar,setAlterar] = useState(false)
+    const [alteracao,setAlterar] = useState(false)
     async function Cadastrar()
     {
         let obj = {
@@ -41,12 +41,40 @@ export default function FormImovel({ imovel }) {
     }
 
     async function alterar() {
-        
+        let obj = {
+            id: imovel.id,
+            descricao: descricao.current.value,
+            endereco: endereco.current.value,
+            bairro: bairro.current.value,
+            cep: cep.current.value,
+            cidade: cidade.current.value,
+            valor: valor.current.value,
+            disponivel: disponivel.current.checked ? 'S' : 'N'
+        }
+        if(!obj.descricao || !obj.endereco || !obj.bairro || !obj.cep || !obj.cidade || !obj.valor)
+        {
+            alert("Preencha todos os campos obrigatórios!")
+            return
+        }
+        let r = await ApiClient.put('/imovel', obj)
+        if(r){
+            toast.success('Imovel alterado com sucesso') 
+            router.push('/administrador/Imoveis')
+        }
     }
 
     useEffect(() => {
+        if(imovel){
         setAlterar(true)
-        // preencher as refs
+            // preencher as refs
+            descricao.current.value = imovel.descricao
+            endereco.current.value = imovel.endereco
+            bairro.current.value = imovel.bairro
+            cep.current.value = imovel.cep
+            cidade.current.value = imovel.cidade
+            valor.current.value = imovel.valor
+            disponivel.current.checked = imovel.disponivel == 'S' ? true : false
+        }
     },[])
     return (<div>
         <h1>Formulário</h1>

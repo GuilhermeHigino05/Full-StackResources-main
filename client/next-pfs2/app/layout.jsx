@@ -5,6 +5,7 @@ import "./globals.css";
 import "../public/template/css/sb-admin-2.min.css";
 import "../public/template/css/fontawesome-free/css/all.min.css";
 import { CursoProvider } from "./context/cursosContext";
+import { UsuarioProvider } from "./context/userContext";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -21,11 +22,11 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR" className={`${nunito.variable}`}>
 
       <body>
-        <CursoProvider>
+        <UsuarioProvider>
 
           <h1>Layout raiz</h1>
           {children}
-        </CursoProvider>
+        </UsuarioProvider>
         <Toaster position="top-right" />
         <Script src="/template/js/jquery.min.js" strategy="beforeInteractive" />
         <Script src="/template/js/bootstrap.bundle.min.js" strategy="beforeInteractive" />

@@ -1,8 +1,12 @@
+'use client'
+
 import Link from "next/link";
+import { useContext } from 'react'
+import UsuarioContext from "../context/userContext";
 
 
 export default function AdminLayout({children}) {
-
+    const {user} = useContext(UsuarioContext)
     return (
         <div>
             <div id="wrapper">
@@ -32,7 +36,7 @@ export default function AdminLayout({children}) {
                     <li className="nav-item">
                         <Link className="nav-link" href="/administrador/usuarios">
                             <i className="fas fa-user"></i>
-                            <span>Usuários</span></Link>
+                            <span>Usuario</span></Link>
                     </li>
 
                     <li className="nav-item">
@@ -66,7 +70,7 @@ export default function AdminLayout({children}) {
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Usuário</span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{user?.nome ?? 'Usuário'}</span>
                                         <img className="img-profile rounded-circle"
                                             src="/img/user.png" />
                                     </a>
