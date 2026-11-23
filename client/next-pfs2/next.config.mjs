@@ -4,8 +4,8 @@ const nextConfig = {
   experimental: {
     agentUpgrade: "security",
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  cacheComponents: false,
+  partialPrefetching: false,
   reactStrictMode: false
 };
 
