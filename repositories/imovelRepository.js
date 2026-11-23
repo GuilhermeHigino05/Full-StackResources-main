@@ -23,6 +23,16 @@ export default class ImovelRepository {
 
         return false;
     }
+    async listarDisponiveis() {
+        let sql = "select * from tb_imovel where imv_disponivel = 'S'";
+        let rows = await this.#banco.ExecutaComando(sql);
+        let lista = [];
+        for(let row of rows) {
+            //mapeamento banco -> entidade
+            lista.push(ImovelEntity.toMap(row));
+        }
+        return lista;
+    }
     async listar() {
         let sql = "select * from tb_imovel";
 

@@ -7,6 +7,13 @@ const router = express.Router();
 let ctrl = new LocacaoController();
 let auth = new AutenticacaoMiddleware();
 
+router.get("/", auth.validar, (req, res) => {
+
+    // #swagger.tags = ['Locação']
+    // #swagger.summary = "Lista os contratos e aluguéis do usuário autenticado"
+    ctrl.listar(req, res);
+});
+
 router.post("/", auth.validar, (req, res) => {
 
     // #swagger.tags = ['Locação']

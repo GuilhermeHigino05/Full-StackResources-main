@@ -19,6 +19,18 @@ export default class LocacaoController {
         this.#imovelRepo = new ImovelRepository();
     }
 
+    async listar(req, res) {
+        try {
+            const usuarioId = req.usuario.id;
+            const contratos = await this.#contratoRepo.listarPorUsuario(usuarioId);
+            return res.status(200).json(contratos);
+        }
+        catch(ex) {
+            console.log(ex);
+            return res.status(500).json({ msg: "Erro interno de servidor!" });
+        }
+    }
+
     async locar(req, res) {
         try{
             let {idImovel} = req.body;

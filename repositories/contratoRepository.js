@@ -14,38 +14,53 @@ export default class ContratoRepository {
     }
 
     async listarPorUsuario(usuarioId) {
+        const sql = `SELECT c.ctr_id, c.usu_id,
+                            i.imv_id, i.imv_descricao, i.imv_cep, i.imv_endereco,
+                            i.imv_bairro, i.imv_cidade, i.imv_valor, i.imv_disponivel,
+                            a.alu_id, a.alu_mes, a.alu_vencimento, a.alu_valor, a.alu_pago
+                     FROM tb_contrato c
+                     INNER JOIN tb_imovel i ON c.imv_id = i.imv_id
+                     LEFT JOIN tb_aluguel a ON c.ctr_id = a.ctr_id
+                     WHERE c.usu_id = ?
+                     ORDER BY c.ctr_id, a.alu_vencimento`;
 
+        const rows = await this.#banco.ExecutaComando(sql, [usuarioId]);
+        const contratosPorId = new Map();
 
-        const sql = `select * from tb_contrato c
-                        inner join tb_imovel i on c.imv_id = i.imv_id
-                        inner join tb_aluguel a on c.ctr_id = a.ctr_id
-                    where c.usu_id = ?`;
+        for (const row of rows) {
+            let contrato = contratosPorId.get(row.ctr_id);
 
-        let rows = await this.#banco.ExecutaComando(sql, [usuarioId]);
-
-        let lista = [];
-
-        for(let i = 0; i < rows.length; i++) {
-            let row = rows[i];
-            let idContrato = row["ctr_id"];
-            let listaAlugueis = [];
-            for(let j = 0; j < rows.length; j++) {
-                //buscar os alugueis do contrato que está sendo mapeado
-                if(idContrato == rows[j]["ctr_id"]) {
-                    i++;
-                    listaAlugueis.push(new AluguelEntity(rows[j]["alu_id"], 
-                        rows[j]["alu_mes"], rows[j]["alu_vencimento"], 
-                        rows[j]["alu_valor"], rows[j]["alu_pago"]));
-                }
+            if (!contrato) {
+                contrato = new ContratoEntity(
+                    row.ctr_id,
+                    new ImovelEntity(
+                        row.imv_id,
+                        row.imv_descricao,
+                        row.imv_cep,
+                        row.imv_endereco,
+                        row.imv_bairro,
+                        row.imv_cidade,
+                        row.imv_valor,
+                        row.imv_disponivel
+                    ),
+                    new UsuarioEntity(row.usu_id),
+                    []
+                );
+                contratosPorId.set(row.ctr_id, contrato);
             }
 
-            lista.push(new ContratoEntity(row["ctr_id"], 
-                new ImovelEntity(row["imv_id"], row["imv_descricao"], 
-                    row["imv_endereco"]), 
-                new UsuarioEntity(row["usu_id"]), listaAlugueis))
+            if (row.alu_id != null) {
+                contrato.alugueis.push(new AluguelEntity(
+                    row.alu_id,
+                    row.alu_mes,
+                    row.alu_vencimento,
+                    row.alu_valor,
+                    row.alu_pago
+                ));
+            }
         }
 
-        return lista;
+        return [...contratosPorId.values()];
     }
 
     async gravar(contrato) {

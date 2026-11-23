@@ -24,6 +24,11 @@ router.put("/", auth.validar, (req, res) => {
     // #swagger.summary = "Atualizar um imóvel existente"
     controladora.atualizar(req, res);
  })
+ router.get("/disponiveis", auth.validar, (req, res) => {
+    // #swagger.tags = ['Imóvel']
+    // #swagger.summary = "Lista todos os imóveis disponíveis"
+    controladora.listarDisponiveis(req, res);
+ })
  router.delete("/:id", auth.validar, (req, res) => {
     //#swagger.tags = ['Imóvel']
     // #swagger.summary = "Excluir um imóvel existente"

@@ -10,6 +10,19 @@ export default class ImovelController {
         this.#repo = new ImovelRepository();
     }
 
+    async listarDisponiveis(req, res) {
+        try{
+            let lista = await this.#repo.listarDisponiveis();
+            if(lista.length == 0) 
+                return res.status(204).json({msg: "Nenhum imóvel disponível encontrado!"});
+
+            return res.status(200).json(lista);
+        }
+        catch(ex) {
+            console.log(ex);
+            return res.status(500).json({msg: "Erro interno no servidor!"});
+        }
+    }
     async listar(req, res) {
 
         try{

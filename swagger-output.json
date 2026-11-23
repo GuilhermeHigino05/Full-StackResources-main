@@ -152,6 +152,32 @@
         }
       }
     },
+    "/imovel/disponiveis": {
+      "get": {
+        "tags": [
+          "Imóvel"
+        ],
+        "summary": "Lista todos os imóveis disponíveis",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/imovel/{id}": {
       "delete": {
         "tags": [
@@ -290,6 +316,27 @@
       }
     },
     "/locacao/": {
+      "get": {
+        "tags": [
+          "Locação"
+        ],
+        "summary": "Lista os contratos e aluguéis do usuário autenticado",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Locação"
